@@ -4,10 +4,9 @@
  *
  * Installation: www/person-status-card/person-status-card.js
  *
- * v1.2.0 – Layout-Option: Horizontal / Vertikal
  */
 
-const CARD_VERSION = "1.2.0";
+const CARD_VERSION = "1.2.1";
 
 // LitElement aus dem bereits geladenen HA-Frontend beziehen (kein Build-Step nötig)
 const LitElement =
@@ -282,12 +281,17 @@ class PersonStatusCard extends LitElement {
   _renderEtaRow(etaEntity, isHome) {
     if (!etaEntity || isHome) return "";
     const eta = etaEntity.state;
+
+    const totalMinutes = Math.ceil(eta);
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
     return html`
       <div class="info-row">
         <svg viewBox="0 0 24 24" width="16" height="16" class="row-icon">
           <path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
         </svg>
-        <span class="info-value">${eta} min</span>
+        <span class="info-value">${hours} h ${minutes} m</span>
       </div>
     `;
   }
